@@ -16,7 +16,7 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 import Register from './Register';
 import Login from './Login';
 import api from '../utils/api.js';
-import * as auth from '../utils/auth';
+// import * as auth from '../utils/auth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -54,13 +54,13 @@ function App() {
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
 
-    if (localStorage.getItem('jwt')) {
-      auth.checkToken(localStorage.getItem('jwt'))
-        .then((res) => {
-          handleLogin(res.data.email);
-        })
-        .catch((err) => console.log(err));
-    }
+    // if (localStorage.getItem('jwt')) {
+    //   auth.checkToken(localStorage.getItem('jwt'))
+    //     .then((res) => {
+    //       handleLogin(res.data.email);
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -28,24 +28,23 @@ export const authorize = (email, password) => {
     credentials: 'include',
     body: JSON.stringify({ email, password }),
   })
-    .then(checkResponse)
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        return data;
-      }
-    });
+    .then(checkResponse);
+    // .then((data) => {
+    //   if (data.token) {
+    //     localStorage.setItem('token', data.token);
+    //     return data;
+    //   }
+    // });
 };
 
-export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    credentials: 'include',
-  })
-  .then(checkResponse);
-}
+// export const checkToken = (token) => {
+//   return fetch(`${BASE_URL}/users/me`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`,
+//     },
+//     credentials: 'include',
+//   })
+//   .then(checkResponse);
+// }
