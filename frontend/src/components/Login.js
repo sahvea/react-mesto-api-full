@@ -1,6 +1,5 @@
 import React from 'react';
 import AuthorizationForm from './AuthorizationForm';
-// import * as auth from '../utils/auth';
 
 function Login(props) {
   const [email, setEmail] = React.useState('');
@@ -47,17 +46,6 @@ function Login(props) {
     }
 
     props.onLogin(email, password);
-
-    // auth.authorize(email, password)
-    //   .then((res) => {
-    //     if (res.token){
-    //       localStorage.setItem('jwt', res.token);
-    //       auth.checkToken(res.token).then((res) => {
-    //         props.onLogin(res.data.email);
-    //       });
-    //     }
-    //   })
-    //   .catch(err => console.log(err));
   }
 
   return (

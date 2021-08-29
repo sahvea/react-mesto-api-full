@@ -16,7 +16,7 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 import Register from './Register';
 import Login from './Login';
 import api from '../utils/api.js';
-// import * as auth from '../utils/auth';
+import * as auth from '../utils/auth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -63,6 +63,30 @@ function App() {
     // }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleTokenCheck = React.useCallback(() => {
+    auth.checkToken()
+      .then((res) => {
+        setLoggedIn(true);
+        setUserEmail(res.data.email);
+        history.push('/');
+      })
+      .catch((err) => {
+        if (err.status === 401) {
+          console.log('Ошибка в передаче токена');
+        }
+      });
+  }, [history]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      history.push('/')
+    }
+  }, [loggedIn, history])
+
+  React.useEffect(() => {
+    handleTokenCheck();
+}, [handleTokenCheck])
 
   React.useEffect(() => {
     function handleEscClose(evt) {
@@ -182,10 +206,15 @@ function App() {
       .finally(() => setIsFormLoading(false));
   }
 
-  function handleLogin(email) {
-    setLoggedIn(true);
-    setUserEmail(email);
-    history.push('/');
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+      .then((res) => {
+        handleTokenCheck();
+        setLoggedIn(true);
+        setUserEmail(email);
+        history.push('/');
+      })
+      .catch(err => console.log(err));
   }
 
   function handleSignOut() {
