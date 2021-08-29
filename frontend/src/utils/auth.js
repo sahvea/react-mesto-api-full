@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.domainname.students.nomoredomains.work';
 
 function checkResponse(response) {
   if (response.ok) {
