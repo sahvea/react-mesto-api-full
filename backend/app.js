@@ -25,12 +25,27 @@ const limiter = rateLimit({
   max: 100,
 });
 
+// const allowedCors = [
+//   'https://mesto.sophie.nomoredomains.club',
+//   'https://api.domainname.students.nomoredomains.work',
+//   'localhost:3000',
+// ];
+
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+
+// app.use(function(req, res, next) {
+//   const { origin } = req.headers;
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//   }
+
+//   next();
+// });
 
 app.use(helmet());
 app.use(limiter);
