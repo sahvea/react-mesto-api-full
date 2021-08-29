@@ -96,7 +96,6 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.domainname.students.nomoredomains.work',
   headers: {
-    authorization: 'c72c9866-e9ca-4f90-b055-72d87299b8be',
     'Content-Type': 'application/json'
   }
 });
