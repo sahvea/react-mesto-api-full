@@ -37,6 +37,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(cors({
   origin: [
     'https://mesto.sophie.nomoredomains.club',
+    'https://api.domainname.students.nomoredomains.work',
     'https://localhost:3000',
   ],
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
