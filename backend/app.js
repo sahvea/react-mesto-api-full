@@ -39,7 +39,7 @@ app.use(cors({
     'https://mesto.sophie.nomoredomains.club',
     'https://localhost:3000',
   ],
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type', 'Accept'],
   credentials: true,
   optionsSuccessStatus: 200,
