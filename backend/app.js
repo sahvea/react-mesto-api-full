@@ -19,6 +19,7 @@ const NotFoundError = require('./errors/not-found-err');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const { PORT = 3000 } = process.env;
 const app = express();
 
 const limiter = rateLimit({
@@ -39,16 +40,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.use(cors());
-
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//   }
-
-//   next();
-// });
+app.use(cors({
+  origin: 'https://mesto.sophie.nomoredomains.club',
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['Authorization', 'Content-Type', 'Accept'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+}));
 
 app.use(helmet());
 app.use(limiter);
@@ -78,4 +76,4 @@ app.use(errorLogger);
 app.use(errors());
 app.use(error);
 
-module.exports = app;
+app.listen(PORT);

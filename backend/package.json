@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "lint": "npx eslint .",
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "jest"
   },
   "repository": {
@@ -38,8 +38,6 @@
     "eslint": "^7.31.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
-    "jest": "^27.0.6",
-    "nodemon": "^2.0.12",
-    "supertest": "^6.1.6"
+    "nodemon": "^2.0.12"
   }
 }
