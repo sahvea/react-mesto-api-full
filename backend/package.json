@@ -2,7 +2,6 @@
   "name": "express-mesto",
   "version": "1.0.0",
   "description": "Проект 'Mesto' фронтенд и бэкенд",
-  "homepage": "https://github.com/SophieMilash/express-mesto",
   "main": "app.js",
   "scripts": {
     "lint": "npx eslint .",
