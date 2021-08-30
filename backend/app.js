@@ -31,14 +31,8 @@ const allowedCors = [
   'https://mesto.sophie.nomoredomains.club',
   'https://api.domainname.students.nomoredomains.work',
   'http://localhost:3000',
+  'https://localhost:3000',
 ];
-
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
 
 app.use(cors({
   origin(origin, callback) {
@@ -84,5 +78,12 @@ app.use('*', () => {
 app.use(errorLogger);
 app.use(errors());
 app.use(error);
+
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
 
 app.listen(PORT);
