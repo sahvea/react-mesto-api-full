@@ -19,13 +19,12 @@ module.exports.login = (req, res, next) => {
         { _id: user._id }, JWT_SECRET, { expiresIn: '7d' },
       );
 
-      res
-        .cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-          sameSite: 'None',
-          secure: true,
-        })
+      return res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+      })
         .send({ message: 'Cookies успешно созданы' });
     })
     .catch((err) => next(new AuthorizationError(`Произошла ошибка: ${err.message}`)));
