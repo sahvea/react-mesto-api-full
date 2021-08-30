@@ -46,7 +46,7 @@ function Register(props) {
       .then((res) => {
         if (res) {
           props.onRegistrationSuccess();
-          history.push('/sign-in');
+          history.push('/signin');
         }
       })
       .catch(err => {

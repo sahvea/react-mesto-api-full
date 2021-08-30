@@ -16,7 +16,9 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   getUserInfo() {
@@ -24,7 +26,9 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   setUserInfo({ name, about }) {
@@ -37,7 +41,9 @@ class Api {
         about: `${about}`
       })
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   setAvatar({ avatar }) {
@@ -49,7 +55,9 @@ class Api {
         avatar: `${avatar}`
       })
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   addCard({ name, link }) {
@@ -62,7 +70,9 @@ class Api {
         link: `${link}`
       })
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   deleteCard(cardId) {
@@ -71,24 +81,31 @@ class Api {
       headers: this._headers,
       credentials: 'include',
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   setLikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   removeLikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers,
       credentials: 'include',
     })
-    .then(this._checkResponse);
+    .then((res) => {
+      return this._checkResponse(res);
+    });
   }
 
   changeLikeCardStatus(cardId, isLiked) {

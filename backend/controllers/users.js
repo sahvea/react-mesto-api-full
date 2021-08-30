@@ -165,3 +165,8 @@ module.exports.updateUserAvatar = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.signOut = (req, res, next) => {
+  res.clearCookie('jwt').send({ message: 'Успешное удаление cookies' });
+  next();
+};

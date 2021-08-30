@@ -41,52 +41,44 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    setIsLoading(true);
+    if (!loggedIn) {
+      return setIsLoading(false);
+    } else {
+      setIsLoading(true);
 
-    Promise.all([
-      api.getUserInfo(),
-      api.getInitialCards()
-    ])
-      .then(([userData, cards]) => {
-        setCurrentUser(userData);
-        setCards(cards);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-
-    // if (localStorage.getItem('jwt')) {
-    //   auth.checkToken(localStorage.getItem('jwt'))
-    //     .then((res) => {
-    //       handleLogin(res.data.email);
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleTokenCheck = React.useCallback(() => {
-    auth.checkToken()
-      .then((res) => {
-        setLoggedIn(true);
-        setUserEmail(res.data.email);
-        history.push('/');
-      })
-      .catch((err) => {
-        if (err.status === 401) {
-          console.log('Ошибка в передаче токена');
-        }
-      });
-  }, [history]);
+      Promise.all([
+        api.getUserInfo(),
+        api.getInitialCards()
+      ])
+        .then(([userData, cards]) => {
+          setCurrentUser(userData);
+          setCards(cards);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false));
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
     if (loggedIn) {
       history.push('/')
     }
-  }, [loggedIn, history])
+  }, [loggedIn, history]);
+
+  const handleTokenCheck = React.useCallback(() => {
+    auth.checkToken()
+      .then((res) => {
+        setLoggedIn(true);
+        setUserEmail(res.email);
+        history.push('/');
+      })
+      .catch((err) => console.log(err))
+  }, [history]);
+
 
   React.useEffect(() => {
     handleTokenCheck();
-}, [handleTokenCheck])
+  }, [handleTokenCheck])
 
   React.useEffect(() => {
     function handleEscClose(evt) {
@@ -185,7 +177,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
@@ -208,7 +200,7 @@ function App() {
 
   function handleLogin(email, password) {
     auth.authorize(email, password)
-      .then((res) => {
+      .then(() => {
         handleTokenCheck();
         setLoggedIn(true);
         setUserEmail(email);
@@ -218,10 +210,13 @@ function App() {
   }
 
   function handleSignOut() {
-    history.push('/sign-in');
-    setUserEmail('');
-    setLoggedIn(false);
-    localStorage.removeItem('jwt');
+    auth.signOut()
+      .then(() => {
+        history.push('/signin');
+        setUserEmail('');
+        setLoggedIn(false);
+      })
+      .catch(err => console.log(err));
   }
 
   function handleRegistrationSuccess() {
@@ -241,10 +236,10 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header loggedIn={loggedIn} onSignOut={handleSignOut} email={userEmail} />
         <Switch>
-          <Route path="/sign-up">
+          <Route path="/signup">
             <Register onRegistrationSuccess={handleRegistrationSuccess} onRegistrationError={handleRegistrationError} />
           </Route>
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login onLogin={handleLogin} />
           </Route>
           <ProtectedRoute path="/" loggedIn={loggedIn} component={Main}

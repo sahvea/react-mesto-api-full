@@ -40,11 +40,11 @@ function Header(props) {
           <span className="header__burger-line"></span>
           <span className="header__burger-line"></span>
         </button>
-        : location.pathname === '/sign-in' ? (
+        : location.pathname === '/signin' ? (
         <nav>
           <ul className="header__menu">
             <li>
-              <Link to="/sign-up" className="header__link">Регистрация</Link>
+              <Link to="/signup" className="header__link">Регистрация</Link>
             </li>
           </ul>
         </nav>
@@ -52,7 +52,7 @@ function Header(props) {
         <nav>
           <ul className="header__menu">
             <li>
-              <Link to="/sign-in" className="header__link">Вход</Link>
+              <Link to="/signin" className="header__link">Вход</Link>
             </li>
           </ul>
         </nav>

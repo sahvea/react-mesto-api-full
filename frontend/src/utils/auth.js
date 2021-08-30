@@ -16,7 +16,7 @@ export const register = (email, password) => {
     credentials: 'include',
     body: JSON.stringify({ email, password })
   })
-    .then(checkResponse);
+    .then((res) => checkResponse(res));
 };
 
 export const authorize = (email, password) => {
@@ -28,13 +28,7 @@ export const authorize = (email, password) => {
     credentials: 'include',
     body: JSON.stringify({ email, password }),
   })
-    .then(checkResponse);
-    // .then((data) => {
-    //   if (data.token) {
-    //     localStorage.setItem('token', data.token);
-    //     return data;
-    //   }
-    // });
+    .then((res) => checkResponse(res));
 };
 
 export const checkToken = () => {
@@ -45,5 +39,13 @@ export const checkToken = () => {
     },
     credentials: 'include',
   })
-  .then(checkResponse);
+  .then((res) => checkResponse(res));
+}
+
+export const signOut = () => {
+  return fetch(`${BASE_URL}/signout`, {
+    method: 'DELETE',
+    credentials: 'include',
+  })
+  .then((res) => checkResponse(res));
 }

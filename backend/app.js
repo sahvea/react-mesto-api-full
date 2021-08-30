@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const usersRoute = require('./routes/user');
 const cardsRoute = require('./routes/card');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, signOut } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const error = require('./middlewares/error');
 const { validateUserBody, validateUserEntranceData } = require('./middlewares/validation');
@@ -68,6 +68,7 @@ app.get('/crash-test', () => {
 
 app.post('/signin', validateUserEntranceData, login);
 app.post('/signup', validateUserBody, createUser);
+app.delete('/signout', signOut);
 
 app.use(auth);
 

@@ -14,7 +14,7 @@ function AuthorizationForm(props) {
           {props.name === 'register' &&
             <div className="authorization__login">
               <p className="authorization__login-paragraph">Уже зарегистрированы?&nbsp;</p>
-              <Link to="/sign-in" className="authorization__login-link">Войти</Link>
+              <Link to="/signin" className="authorization__login-link">Войти</Link>
             </div>
           }
         </fieldset>
