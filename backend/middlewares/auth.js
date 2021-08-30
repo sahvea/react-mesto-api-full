@@ -8,13 +8,15 @@ module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
   let payload;
 
+  if (!token) {
+    throw new AuthorizationError('Необходима авторизация');
+  }
+
   try {
     payload = jwt.verify(token, JWT_SECRET);
+    req.user = payload;
+    next();
   } catch (err) {
     next(new AuthorizationError('Необходима авторизация'));
   }
-
-  req.user = payload;
-
-  next();
 };

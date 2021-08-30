@@ -6,7 +6,7 @@ const NotFoundError = require('../errors/not-found-err'); // 404
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
@@ -15,7 +15,7 @@ module.exports.createCard = (req, res, next) => {
   const owner = req.user._id;
 
   Card.create({ name, link, owner })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new IncorrectDataError('Переданы некорректные данные при создании карточки.');
@@ -40,7 +40,7 @@ module.exports.deleteCard = (req, res, next) => {
         return;
       }
       card.deleteOne();
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -65,7 +65,7 @@ module.exports.setLikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Невалидный _id.');
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -92,7 +92,7 @@ module.exports.removeLikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Невалидный _id.');
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

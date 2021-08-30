@@ -30,7 +30,7 @@ const limiter = rateLimit({
 const allowedCors = [
   'https://mesto.sophie.nomoredomains.club',
   'https://api.domainname.students.nomoredomains.work',
-  'https://localhost:3000',
+  'http://localhost:3000',
 ];
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -48,11 +48,13 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD'],
   allowedHeaders: ['Authorization', 'Content-Type', 'Accept'],
   credentials: true,
   optionsSuccessStatus: 200,
 }));
+
+app.options('*', cors());
 
 app.use(helmet());
 app.use(limiter);
